@@ -1,0 +1,145 @@
+\begin{comment}
+    
+
+    Nessa paper vamos focar na verificação de redes Redes Neurais Convulacionais Quantizadas (QCNNs) lidando como o problema da equivalência de código entre a função original e a função quantizadas.
+
+    O objetivo do paper é mostrar que o método de verificação BMC com SMT pode ser usado para garantir a confiabilidade de QCNNs no processamento de imagens em sistemas de menor potência computacional.
+    
+    Existem trabalhos que usam SMT para verificar o modelo matemático, mas como mostrado por \cite{cordeiro2025neuralnetworkverificationprogramming} ele deve ser tratado como um programa de verificação de programa.
+
+    Verificar no BMC
+    --multi-property
+    --parallel-solving
+    --smt-symex-guard
+
+
+\end{comment}
+
+
+\chapter{Introduction}\label{cap:intro}
+
+%%% First talk about the advances of AI in everyday life 
+%%% Then talk about how much have AI models grown 
+%%% Use present tense when talking about this dissertation and past tense when talking about past works.
+
+\section{Background}
+From the first Artificial Neural Network (ANN) models such as Perceptron, which was proposed in 1958 \cite{Rosenblatt1958}, to the current state-of-the-art models like GPT-4 \cite{OpenAI2023GPT4}, ANN has become a transformative force across various sectors. It is used in healthcare for diagnostics such as Parkison disease detection \cite{Luo2025Efficient}, in autonomous vehicles for safety features using Convolutional neural networks (CNNs) to detect driver distraction in real time \cite{Lei2025An}, and in finance for fraud detection by analyzing transaction patterns using advanced machine learning algorithms \cite{Zhu2024A}. These examples illustrate the profound impact of these models on our daily lives, improving efficiency, safety, and decision-making processes. 
+
+%%% Then talk about the usage of AI in embbeded fields, such as smartphones and IoT devices
+However, these state-of-the-art ANNs are often too large and complex to be deployed on devices with limited resources, such as smartphones and IoT devices \cite{Zhu2020Survey}. The computational demands of these models can lead to significant latency and energy consumption, making them impractical for real-time applications in resource-constrained environments.
+
+
+\begin{comment}
+    %%%% These papers talk using quantization to reduce the floating point precision to fixed point precision.
+    (JACOB et al., 2017;  LIN; TALATHI; ANNAPUREDDY, 2016)
+    %%%% These techniques reduce network size and computational requirements
+    (HAN; MAO; DALLY, 2016; NAGEL et al.,  2021)
+    %%% However it lead to a trade-off between model size and accuracy
+    (JACOB et al., 2017; HUBARA et  al., 2017)
+\end{comment}
+
+%%% Here we will talk about the quantization problem of neural networks, the use of SMT solvers to solve combinatorial problems, and the motivation for this work.
+
+To address these challenges, quantization techniques are commonly used to reduce the size of models \cite{Zhu2016Trained, Zhu2020Survey}. It involves reducing the precision of the model's weights, activations, and bias, which can lead to a significant reduction in memory usage and computational requirements. However, this process often results in a trade-off between model size and accuracy, as lower precision can lead to degration of performance and therefore its accuracy \cite{Zhou2017Incremental}.
+
+In works such as \cite{cai2025certified}, the authors have highlighted two critical safety properties of QNNs: robustness and backdoor-freeness. The robustness would refer to the model's ability to resist small input perturbations that change the classification, while the former refers to the ability of not having backdoors, which could be intentionally explored with malicious intent. These properties are of utmost importance to ensure the reliablity and safety of QNNs.
+
+
+\section{Motivation}
+
+%% Vms abordar a motivação do uso de quantização e a necessidade de verificar a integridade dos modelos quantizados.
+
+
+Thus, the need to ensure the reliability of ANN models after going through quantization is demonstrated since these models are being employed in critical applications, e.g., healthcare, autonomous vehicles, financial system fraud detection, among others \cite{OpenAI2023GPT4, Luo2025Efficient, Lei2025An, Zhu2024A}. In these scenarios, the models must not only be efficient to run on resource-constrained environments but also maintain their robustness and safety properties while keeping it's accuracy. 
+
+% The process of quantization tries to mitigate the disadvantages of process, but fail. let's write about it.
+Modern quantization techniques, such as those proposed by \cite{Zhu2020Survey, han2015deepcompression, han2020understanding, jacob2018quantization, Cai2020Certified, Zhou2017Incremental}, aim to reduce the loss of accuracy while minimizing the size of the model by employing a different set of strategies such as weight sharing, pruning, and factorization of low rank. However, these techniques often do not guarantee that the quantized model will retain its robustness or be backdoor-free.
+
+In order to ensure that the quantization process does not compromise the model's performance, some verification techniques such as Formal Methods are employed. These methods can be used to verify the integrity of the quantized model by checking if the quantized model still meets the safety properties like the original model.
+\begin{comment}
+    
+    %% We will talk about the need to verify the integrity of quantized neural networks, and how SMT solvers can be used to verify the integrity of these models.
+    Therefore, it is essencial to have a robust mehtod to verify the integrity of QNNs, ensuring they still meet their requirements and perform securily to their intended tasks. 
+    
+    
+    While quantization can make models more efficient, it is crucial to verify that the quantized model still meets the required performance standards. 
+    
+    Think of a scenario where a quantized model is embbeded in a medical device for a real-time diagnostics or a self-driving car where the most precision is required. In such cases, any degradation in model performance due to quantization is unacceptable. Therefore, given the important of these applications, it is essential to have a robust method for verifying the integrity of quantized models.
+    
+    ANN are widely used in various applications, but their computational and memory resource demands are high \cite{amir2021smt, han2020understanding, abdi2021counterexample, song2023qnnrepair}. Quantization is a crucial technique to mitigate this problem by reducing the bit-width (from 32-bit floating-point to 8-bit integers or even binary) used to represent weights, biases, and activations, making networks more efficient on embedded and low-power devices \cite{amir2021smt, han2020understanding,song2023qnnrepair, abdi2021counterexample, Cai2020Certified}.
+    % This paragraph we will talk about other works that have verified the integrity of neural networks. Then we will talk about the use of MILP to verify pre-image of neural networks and use it to verify the integrity of quantized neural networks. However, this approach does not verify using fixed-point precision like SMT solvers do.
+\end{comment}
+\section{Problem Statement}
+
+%The formal method aims to address the implementation gap \cite{cordeiro2025neuralnetworkverificationprogramming}. 
+Most formal verification techniques for neural networks (such as Reluplex and Marabou) assume that networks operate with real-number arithmetic \cite{katz2017reluplex,amir2021smt}. In contrast, actual hardware implementations use finite-precision arithmetic, such as low-precision floating-point or, more frequently, fixed-point \cite{han2020understanding}.
+
+Furthermore, quantization, while beneficial for efficiency, can degrade accuracy and, more critically, compromise desired safety properties. Existing works on QNN verification generally focuses on post-hoc analyses; that is, they verify a network after it has been quantized \cite{eleftheriadis2022neuralnetworkequivalencechecking,song2023qnnrepair,katz2017reluplex,baranowski2020smt, Pulina2012Challenging, cordeiro2025neuralnetworkverificationprogramming} aiming to ensure that the quantization process does not introduce vulnerabilities or degrade of accuracy. However, these approaches do not guarantee the optimal quantization strategy unlinke the work of \cite{abdi2021counterexample,cai2025certified}, which proposes a framework to find a optimal bit-width for each layer of a QNN.
+
+In contrast, the use of Mixed Integer Linear Programming (MILP) solvers has been proposed to verify the pre-image of QNNs \cite{cai2025certified}. This approach allows for the verification of robustness and backdoor-freeness properties of QNNs. While having achieved promissing results in preserving these properties, it does not consider the fixed-point precision used in QNNs as done by \cite{baranowski2020smt}.
+
+Since the verification problem in \cite{cai2025certified} uses MILP solvers, it does not formally incorporate the nuances of fixed-point arithmetic during verification. This work aims to fill this gap by integrating the SMT Theory of Fixed-Point Arithmetic, as formalized by \cite{baranowski2020smt}, into the pre-image calculation and quantization process. This integration will allow the synthesis of quantization strategies that are certified for specific finite precision, ensuring that properties hold even with the effects of round and overflow.
+
+\begin{comment}
+    
+    Several works have explored the verification of neural networks, particularly focusing on verification problem like a code problem \cite{cordeiro2025neuralnetworkverificationprogramming}. Some works like \cite{katz2017reluplex,katz2019marabou,abdi2021counterexample,song2023qnnrepair} use SMT solvers to verify the integrity of QNN by checking properties such as robustness\footnote{resistência a perturbações} and safety. However, these approuches typically do not scale well to large models and also do not take into account the fixed-point precision used in quantized models. In contrast, the use of MILP solvers has been proposed to verify the pre-image of QNNs \cite{cai2025certified}. This approach allows for the verification of robustness and backdoor-freeness properties of QNNs. Though the work lacks to consider the fixed-point precision used in quantized models as done by \cite{baranowski2020smt}. It then lays the foundation for our work.
+    
+\end{comment}
+
+\section{Objectives}
+
+The goal of this work is to develop a framework for the synthesis of quantization strategies that guarantee the preservation of robustness and backdoor-freeness properties after quantization, while directly addressing finite-precision arithmetic. This will differ form post-hoc approaches and quantization techniques that focus solely on accuracy as the primary goal will be to ensure a optimal quantization bit-width precision for each layer of the QNN. To formally achieve the proposed goal, the following specific objectives have been defined:
+
+\begin{itemize}
+    \item \textbf{Formalize the SMT Theory to encode Quantization Synthesis:} Integrate the SMT Theory into the preimage calculation and quantization process, allowing for the synthesis of quantization strategies that are certified for specific finite precision.
+    \item \textbf{Adapt the MILP Formulation to SMT:} Adapt the Mixed-Integer Linear Programming (MILP) formulation used in \cite{cai2025certified} to a SMT formulation that reflects fixed-point operations, ensuring that the pre-image calculation accounts for the effects of finite precision.
+    \item \textbf{Validade Framework:} Validate the proposed framework by applying it to a set of NNs, demonstrating its effectiveness in synthesing quantization that preserve the desired properties.
+    \item \textbf{Evaluate Performance:} Evaluate the performance of the proposed framework in terms of scalability and efficiency, comparing it with existing approaches. 
+    
+\end{itemize}
+
+\begin{comment}
+    
+    
+    This dissertation proposes the development of a framework for the certified synthesis of quantization strategies that guarantee the preservation of desired properties after quantization, directly addressing finite-precision arithmetic. This differs from post-hoc approaches and quantization techniques that focus solely on accuracy.
+
+    \textbf{Synthesis of Quantization Strategies (Inspired by Quadapter):}
+The work Quadapter is the first to propose the synthesis of certified quantization strategies \cite{Zhu2021Quadapter,Cai2020Certified}. Its central idea is to compute the pre-image of each layer with respect to the desired output region and then identify the minimum bit-width for each layer, ensuring that the quantized layer's reachable region remains within that pre-image.
+
+This work would extend this line of research by focusing on the incorporation of fixed-precision arithmetic during the synthesis process. This is not the primary focus of Quadapter in its current state, which, while dealing with realistic quantization representations, does not yet formally incorporate the nuances of fixed-point arithmetic during verification.
+
+\textbf{Formal Integration of the SMT Theory of Fixed-Point Arithmetic:}
+A fundamental contribution would be the use of the SMT Theory of Fixed-Point Arithmetic, as formalized by \cite{baranowski2020smt}. This theory provides a rigorous formalization for fixed-point operations, including rounding modes (roundUp, roundDown) and overflow modes (saturation, wrapAround).
+
+The proposal is to integrate this formal theory into the pre-image calculation and quantization procedures of the synthesis framework. This would allow the synthesized quantization strategies to be certified for the specific finite precision of the hardware, ensuring that properties hold even with the effects of rounding and overflow. The methods of \cite{baranowski2020smt} already include decision procedures for this theory, via both bit-vectors and reals, which is essential for a verifier. They themselves demonstrate a case study using this theory to verify QNNs.
+
+This would more robustly solve the "implementation gap," as the formal guarantees would be directly on the behavior of fixed-point arithmetic, not just a real-number approximation.
+
+\textbf{Pre-image Calculation with Fixed-Point Semantics:}
+Quadapter uses a method based on Mixed-Integer Linear Programming (MILP) to compute under-approximations of the pre-image. This work would adapt this MILP formulation to precisely reflect fixed-point operations (including rounding and overflow) instead of just real numbers. This would ensure that the calculated pre-image already accounts for the effects of finite precision.
+
+\textbf{Bit-Precise Verification in Progressive Quantization:}
+In Quadapter's progressive quantization algorithm, the verification step $\left(\gamma(\hat{A}_{2i}) \subseteq P_{2i}\right)$ \textcolor{red}{(Still have to add the math theory)} compares the quantized reachable region with the pre-image. The proposal is to use formal SMT-based fixed-point reasoning (potentially through backends like ESBMC) to perform this verification in a bit-precise manner \cite{esbmc2025}. This would mean that the inclusion of the quantized reachable region within the pre-image would be verified considering the exact rules of fixed-point arithmetic.
+
+QNN verification is a PSPACE-hard problem, and scalability is a known challenge for all verifiers (e.g., Marabou, Reluplex, CEG4N). Even Quadapter faces timeouts in pre-image calculations.
+
+\textbf{Adaptive/Dynamic Quantization:} While Quadapter synthesizes per-layer bit-widths, this research could explore how to fine-tune precision (e.g., different precisions within a layer, as discussed by \cite{han2020understanding,abdi2021counterexample}) in a verification-guided manner to minimize bit requirements without losing properties, seeking a balance that optimizes verifier performance.
+
+
+
+\end{comment}
+
+\section{Contributions}
+From this work we expect to contribuite to the field of QNN verification by providing a framework that allows for the synthesis of quantization strategies that take into account the fixed-point precision used by QNN models. The main contributions will be:
+\begin{itemize}
+    \item A formalization of the SMT Theory of Fixed-Point Arithmetic to encode quantization synthesis, allowing for the synthesis of quantization strategies that are certified for specific finite precision.
+    \item An adaptation of the MILP formulation used in \cite{cai2025certified} to a SMT formulation that reflects fixed-point operations, ensuring that the pre-image calculation accounts for the effects of finite precision.
+    \item A validation of the proposed framework by applying it to a set of NNs, demonstrating its effectiveness in synthesizing quantization strategies that preserve the desired properties.
+    \item An evaluation of the performance of the proposed framework in terms of scalability and efficiency, comparing it with existing approaches.
+\end{itemize}   
+
+\section{Dissertation Structure}
+
+The document structure unfolds as follows. Chapter \ref{cap:intro} introduces the background, motivations, and objectives of the work. Chapter \ref{chap:fundamentos} delves into the theoretical foundations, including the SMT Theory, Neural Networks, and Quantization.
+
+
