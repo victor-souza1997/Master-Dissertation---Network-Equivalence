@@ -1,11 +1,27 @@
-\backcite {Rosenblatt1958}{{1}{1}{chapter.1}}
-\backcite {OpenAI2023GPT4}{{1}{1}{chapter.1}}
-\backcite {Luo2025Efficient}{{1}{1}{chapter.1}}
-\backcite {Lei2025An}{{1}{1}{chapter.1}}
-\backcite {Zhu2024A}{{1}{1}{chapter.1}}
-\backcite {Zhu2016Trained}{{1}{1}{chapter.1}}
-\backcite {Zhou2017Incremental}{{1}{1}{chapter.1}}
-\backcite {Pulina2012Challenging}{{3}{1.3}{section*.5}}
-\backcite {song2023qnnrepair}{{5}{2.1}{section.2.1}}
-\backcite {eleftheriadis2022neuralnetworkequivalencechecking}{{5}{2.1}{section.2.1}}
-\backcite {cordeiro2025neuralnetworkverificationprogramming}{{8}{4.1}{section.4.1}}
+\backcite {Rosenblatt1958}{{1}{1.1}{section.1.1}}
+\backcite {OpenAI2023GPT4}{{1}{1.1}{section.1.1}}
+\backcite {Luo2025Efficient}{{1}{1.1}{section.1.1}}
+\backcite {Lei2025An}{{1}{1.1}{section.1.1}}
+\backcite {Zhu2024A}{{1}{1.1}{section.1.1}}
+\backcite {Zhu2020Survey}{{1}{1.1}{section.1.1}}
+\backcite {Zhu2016Trained, Zhu2020Survey}{{1}{1.1}{section.1.1}}
+\backcite {Zhou2017Incremental}{{1}{1.1}{section.1.1}}
+\backcite {cai2025certified}{{2}{1.1}{section.1.1}}
+\backcite {OpenAI2023GPT4, Luo2025Efficient, Lei2025An, Zhu2024A}{{2}{1.2}{section.1.2}}
+\backcite {Zhu2020Survey, han2015deepcompression, han2020understanding, jacob2018quantization, Cai2020Certified, Zhou2017Incremental}{{2}{1.2}{section.1.2}}
+\backcite {katz2017reluplex,amir2021smt}{{2}{1.3}{section.1.3}}
+\backcite {han2020understanding}{{2}{1.3}{section.1.3}}
+\backcite {eleftheriadis2022neuralnetworkequivalencechecking,song2023qnnrepair,katz2017reluplex,baranowski2020smt, Pulina2012Challenging, cordeiro2025neuralnetworkverificationprogramming}{{3}{1.3}{section.1.3}}
+\backcite {abdi2021counterexample,cai2025certified}{{3}{1.3}{section.1.3}}
+\backcite {cai2025certified}{{3}{1.3}{section.1.3}}
+\backcite {baranowski2020smt}{{3}{1.3}{section.1.3}}
+\backcite {cai2025certified}{{3}{1.3}{section.1.3}}
+\backcite {baranowski2020smt}{{3}{1.3}{section.1.3}}
+\backcite {cai2025certified}{{4}{1.4}{section.1.4}}
+\backcite {cai2025certified}{{4}{1.5}{section.1.5}}
+\backcite {henzinger2020preimage}{{6}{2.1}{section.2.1}}
+\backcite {baranowski2020smt}{{7}{2.1}{section.2.1}}
+\backcite {katz2017reluplex,katz2019marabou}{{7}{2.2}{section.2.2}}
+\backcite {cai2025certified}{{8}{3}{chapter.3}}
+\backcite {baranowski2020smt, sena2021verifying, zhang2020qvip, huangEfficientVerificationQuantized2023, henzingerScalableVerificationQuantized2022}{{8}{3}{chapter.3}}
+\backcite {sena2021verifying}{{9}{3.1}{section.3.1}}

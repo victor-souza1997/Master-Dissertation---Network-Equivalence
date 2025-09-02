@@ -59,7 +59,7 @@
 and Thesis] \LoadClass[12pt,a4paper,oneside]{book}
 \RequirePackage{lastpage}
 %\RequirePackage{hyperref}
-\RequirePackage[brazil, english]{babel} \RequirePackage{hyphenat}
+\RequirePackage[english,brazil]{babel} \RequirePackage{hyphenat}
 \RequirePackage{ifthen} \RequirePackage{graphicx}
 \RequirePackage{tabularx} \RequirePackage{eqparbox}
 \RequirePackage[a4paper,bindingoffset=0.0cm,vcentering=true,%

@@ -67,7 +67,7 @@
 
 @inproceedings{katz2019marabou,
   title={The Marabou framework for verification and analysis of deep neural networks},
-  author={Katz, Guy and Huang, Derek A and Ibeling, Daniel and Julian, Kyle and Lazarus, Christopher and Lim, Rachel and Shah, Parth and Thakoor, Shantanu and Wu, Haoze and Yad_Gar, Aleksandar and others},
+  author={Katz, Guy and Huang, Derek A and Ibeling, Daniel and Julian, Kyle and Lazarus, Christopher and Lim, Rachel and Shah, Parth and Thakoor, Shantanu and Wu, Haoze and Yad\_Gar, Aleksandar and others},
   booktitle={Computer Aided Verification},
   pages={443--452},
   year={2019},
@@ -92,6 +92,49 @@
   year={2020},
   organization={Springer}
 }
+% QVIP An ILP-based Formal Verification Approach for Quantized Neural Networks zhang2020qvip,
+@inproceedings{zhang2020qvip,
+  title={QVIP: An ILP-based formal verification approach for quantized neural networks},
+  author={Zhang, Chen and Chen, I-Chin and Cheng, Chih-Hong},
+  booktitle={Computer Aided Verification},
+  pages={453--474},
+  year={2020},
+  organization={Springer}
+}
+% Towards Efficient Verification of Quantized Neural Networks
+@misc{huangEfficientVerificationQuantized2023,
+  title = {Towards Efficient Verification of Quantized Neural Networks},
+  url = {http://arxiv.org/abs/2312.12679},
+  doi = {10.48550/arXiv.2312.12679},
+  abstract = {Quantization replaces floating point arithmetic with integer arithmetic in deep neural network models, providing more efficient on-device inference with less power and memory. In this work, we propose a framework for formally verifying properties of quantized neural networks. Our baseline technique is based on integer linear programming which guarantees both soundness and completeness. We then show how efficiency can be improved by utilizing gradient-based heuristic search methods and also bound-propagation techniques. We evaluate our approach on perception networks quantized with PyTorch. Our results show that we can verify quantized networks with better scalability and efficiency than the previous state of the art.},
+  language = {en},
+  urldate = {2025-08-26},
+  publisher = {arXiv},
+  author = {Huang, Derek A. and Ibeling, Daniel and Katz, Guy and Julian, Kyle and Lim, Rachel and Shah, Parth and Thakoor, Shantanu and Wu, Haoze and Yad\_Gar, Aleksandar},
+  month = dec,
+  year = {2023},
+  note = {arXiv:2312.12679 [cs]},
+  keywords = {Computer Science - Artificial Intelligence, Computer Science - Logic in Computer Science, Computer Science - Machine Learning},
+  file = {PDF:files/391/Huang et al. - 2023 - Towards Efficient Verification of Quantized Neural Networks.pdf:application/pdf}
+}
+
+
+@misc{henzingerScalableVerificationQuantized2022,
+  title = {Scalable Verification of Quantized Neural Networks (Technical Report)},
+  url = {http://arxiv.org/abs/2012.08185},
+  doi = {10.48550/arXiv.2012.08185},
+  abstract = {Formal veriﬁcation of neural networks is an active topic of research, and recent advances have signiﬁcantly increased the size of the networks that veriﬁcation tools can handle. However, most methods are designed for veriﬁcation of an idealized model of the actual network which works over real arithmetic and ignores rounding imprecisions. This idealization is in stark contrast to network quantization, which is a technique that trades numerical precision for computational efﬁciency and is, therefore, often applied in practice. Neglecting rounding errors of such low-bit quantized neural networks has been shown to lead to wrong conclusions about the network's correctness. Thus, the desired approach for verifying quantized neural networks would be one that takes these rounding errors into account. In this paper, we show that verifying the bitexact implementation of quantized neural networks with bitvector speciﬁcations is PSPACE-hard, even though verifying idealized real-valued networks and satisﬁability of bit-vector speciﬁcations alone are each in NP. Furthermore, we explore several practical heuristics toward closing the complexity gap between idealized and bit-exact veriﬁcation. In particular, we propose three techniques for making SMT-based veriﬁcation of quantized neural networks more scalable. Our experiments demonstrate that our proposed methods allow a speedup of up to three orders of magnitude over existing approaches.},
+  language = {en},
+  urldate = {2025-08-24},
+  publisher = {arXiv},
+  author = {Henzinger, Thomas A. and Lechner, Maximilian and Noll, David and Sezgin, C. Isak},
+  month = apr,
+  year = {2022},
+  note = {arXiv:2012.08185 [cs]},
+  keywords = {Computer Science - Artificial Intelligence, Computer Science - Machine Learning},
+  file = {PDF:files/307/Henzinger et al. - 2022 - Scalable Verification of Quantized Neural Networks (Technical Report).pdf:application/pdf}
+}
+
 
 @article{sena2021verifying,
   title={Verifying Quantized Neural Networks using SMT-Based Model Checking},
@@ -534,4 +577,32 @@ doi = {10.3233/AIC-2012-0525}
   number={1},
   pages={1--14},
   doi={10.1109/TNNLS.2024.3271234}
+}
+
+% Scalable Verification of Quantized Neural Networks (Technical Report)
+% Mentions Teslas uses 8-bit quantization
+@article{henzinger2021scalable,
+  title={Scalable verification of quantized neural networks},
+  author={Henzinger, Thomas A and Lechner, Maximilian and Noll, David and Sezgin, C Isak},
+  journal={arXiv preprint arXiv:2102.09553},
+  year={2021}
+}
+
+%How  Many Bits Does it Take to Quantize Your Neural Network
+@article{giacobbe2020how,
+  title={How many bits does it take to quantize your neural network?},
+  author={Giacobbe, Mattia and Henzinger, Thomas A and Lechner, Maximilian},
+  journal={arXiv preprint arXiv:2002.07336},
+  year={2020}
+}
+
+% On Preimage Approximation for Neural Networks
+% Paper brings the theory behind the preimage calculation used in \cite{cai2025certified}
+@inproceedings{henzinger2020preimage,
+  title={On preimage approximation for neural networks},
+  author={Henzinger, Thomas A and Lechner, Maximilian and Noll, David and Sezgin, C Isak},
+  booktitle={International Conference on Tools and Algorithms for the Construction and Analysis of Systems},
+  pages={188--206},
+  year={2020},
+  organization={Springer}
 }

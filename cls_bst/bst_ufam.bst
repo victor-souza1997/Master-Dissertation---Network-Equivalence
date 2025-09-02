@@ -99,6 +99,13 @@ FUNCTION {output.check}
     'output.nonnull
   if$
 }
+FUNCTION {begin.cite}
+{ "("
+}
+
+FUNCTION {end.cite}
+{ ")"
+}
 
 FUNCTION {output.bibitem}
 { newline$
